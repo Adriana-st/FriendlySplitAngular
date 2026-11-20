@@ -1,0 +1,22 @@
+<a matButton routerLink="/trips">Back to trips</a>
+
+@let s = state();
+@if (s.status === 'loading') {
+  <p>Loading trip...</p>
+} @else if (s.status === 'error') {
+  <p role="alert" class="error">{{ s.message }}</p>
+} @else {
+  <h1>{{ s.data.name }}</h1>
+  @if (s.data.destination) {
+    <p>Destination: {{ s.data.destination }}</p>
+  }
+  <p>{{ s.data.startDate | date: 'd MMM y' : 'UTC' }} – {{ s.data.endDate | date: 'd MMM y' : 'UTC' }}</p>
+  <p>Currency: {{ s.data.currency }}</p>
+
+
+  <h2>People</h2>
+
+
+  <h2>Expenses</h2>
+
+}
