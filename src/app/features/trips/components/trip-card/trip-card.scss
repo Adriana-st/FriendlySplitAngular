@@ -1,0 +1,11 @@
+:host {
+  display: block; // lets the card's box fill its grid cell
+}
+
+mat-card {
+  height: 100%;
+}
+
+mat-card-actions {
+  margin-top: auto; // pushes the View link to the bottom of the card
+}
