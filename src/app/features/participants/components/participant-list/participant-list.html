@@ -1,0 +1,26 @@
+@let s = state();
+@if (s.status === 'loading') {
+  <p>Loading people...</p>
+} @else if (s.status === 'error') {
+  <p role="alert" class="error">{{ s.message }}</p>
+} @else if (s.data.length === 0) {
+  <p>No one on this trip yet.</p>
+} @else {
+  <ul class="rows">
+    @for (person of s.data; track person._id) {
+      <li class="row">
+        <span><strong>{{ person.name }}</strong> – {{ person.email }}</span>
+        <span class="actions">
+          <a matButton [routerLink]="['/trips', tripId(), 'participants', person._id, 'edit']">
+            Edit {{ person.name }}
+          </a>
+          <button matButton type="button" (click)="deleteParticipant(person)">Remove {{ person.name }}</button>
+        </span>
+      </li>
+    }
+  </ul>
+}
+
+@if (deleteError(); as message) {
+  <p role="alert" class="error">{{ message }}</p>
+}

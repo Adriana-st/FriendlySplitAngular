@@ -8,10 +8,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Trip } from '../../models/trip.model';
 import { TripService } from '../../services/trip.service';
 import { LoadState, withLoadState } from '../../../../shared/load-state';
+import { ParticipantList } from '../../../participants/components/participant-list/participant-list';
 
 @Component({
   selector: 'app-trip-details',
-  imports: [DatePipe, RouterLink, MatButtonModule],
+  imports: [DatePipe, RouterLink, MatButtonModule, ParticipantList],
   templateUrl: './trip-details.html',
   styleUrl: './trip-details.scss',
 })

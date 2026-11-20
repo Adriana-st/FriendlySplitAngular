@@ -25,7 +25,8 @@
   }
 
   <h2>People</h2>
-
+  <app-participant-list [tripId]="s.data._id" />
+  <a matButton="outlined" [routerLink]="['/trips', s.data._id, 'participants', 'new']">Add person</a>
 
   <h2>Expenses</h2>
 
