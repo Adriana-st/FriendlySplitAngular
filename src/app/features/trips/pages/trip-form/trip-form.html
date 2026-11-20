@@ -1,0 +1,68 @@
+<form [formGroup]="tripForm" (ngSubmit)="onSubmit()" class="form">
+  <h1>New trip</h1>
+
+  @if (saving()) {
+    <mat-progress-bar mode="indeterminate" />
+  }
+
+  <mat-form-field appearance="outline">
+    <mat-label>Trip name</mat-label>
+    <input matInput formControlName="name" placeholder="e.g. Lisbon weekend" />
+    @if (tripForm.controls.name.hasError('required')) {
+      <mat-error>Name is required</mat-error>
+    } @else if (tripForm.controls.name.hasError('minlength')) {
+      <mat-error>Name must be at least 3 characters</mat-error>
+    } @else if (tripForm.controls.name.hasError('maxlength')) {
+      <mat-error>Name must be 60 characters or fewer</mat-error>
+    } @else if (tripForm.controls.name.hasError('blank')) {
+      <mat-error>Name cannot be only spaces</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Destination</mat-label>
+    <input matInput formControlName="destination" placeholder="e.g. Lisbon" />
+    <mat-hint>Optional</mat-hint>
+    @if (tripForm.controls.destination.hasError('maxlength')) {
+      <mat-error>Destination must be 80 characters or fewer</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Currency</mat-label>
+    <input matInput formControlName="currency" maxlength="3" />
+    <mat-hint>3-letter code, e.g. EUR</mat-hint>
+    @if (tripForm.controls.currency.hasError('required')) {
+      <mat-error>Currency is required</mat-error>
+    } @else if (tripForm.controls.currency.hasError('pattern')) {
+      <mat-error>Use a 3-letter code such as EUR or GBP</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Start date</mat-label>
+    <input matInput type="date" formControlName="startDate" />
+    @if (tripForm.controls.startDate.hasError('required')) {
+      <mat-error>Start date is required</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>End date</mat-label>
+    <input matInput type="date" formControlName="endDate" />
+    @if (tripForm.controls.endDate.hasError('required')) {
+      <mat-error>End date is required</mat-error>
+    }
+  </mat-form-field>
+
+  @if (saveError(); as message) {
+    <p role="alert" class="error">{{ message }}</p>
+  }
+
+  <div class="actions">
+    <button matButton="filled" type="submit" [disabled]="saving()">
+      {{ saving() ? 'Saving...' : 'Save trip' }}
+    </button>
+    <a matButton routerLink="/trips">Cancel</a>
+  </div>
+</form>
