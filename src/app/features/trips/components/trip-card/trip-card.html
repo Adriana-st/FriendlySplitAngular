@@ -1,0 +1,17 @@
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>{{ trip().name }}</mat-card-title>
+    @if (trip().destination) {
+      <mat-card-subtitle>{{ trip().destination }}</mat-card-subtitle>
+    }
+  </mat-card-header>
+
+  <mat-card-content>
+    <p>{{ trip().startDate | date: 'd MMM y' : 'UTC' }} – {{ trip().endDate | date: 'd MMM y' : 'UTC' }}</p>
+    <p>Currency: {{ trip().currency }}</p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <a matButton [routerLink]="['/trips', trip()._id]">View {{ trip().name }}</a>
+  </mat-card-actions>
+</mat-card>

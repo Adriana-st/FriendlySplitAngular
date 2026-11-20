@@ -37,3 +37,58 @@ body {
   height: 100%;
 }
 /* You can add global styles to this file, and also import other style files */
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+// One column on a phone, more columns on a laptop - no media queries needed
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 32rem;
+  margin: 1rem auto;
+}
+
+.form mat-form-field {
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.error {
+  color: var(--mat-sys-error);
+}
+
+// Rows for the people and expense lists
+.rows {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+}

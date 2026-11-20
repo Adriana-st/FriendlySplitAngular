@@ -1,0 +1,19 @@
+<div class="page-header">
+  <h1>Trips</h1>
+  <a matButton="filled" routerLink="/trips/new">New trip</a>
+</div>
+
+@let s = state();
+@if (s.status === 'loading') {
+  <p>Loading trips...</p>
+} @else if (s.status === 'error') {
+  <p role="alert" class="error">{{ s.message }}</p>
+} @else if (s.data.length === 0) {
+  <p>No trips yet. Create your first one.</p>
+} @else {
+  <div class="grid">
+    @for (trip of s.data; track trip._id) {
+      <app-trip-card [trip]="trip" />
+    }
+  </div>
+}
