@@ -15,8 +15,14 @@
 
   <div class="actions">
     <a matButton="filled" [routerLink]="['/trips', s.data._id, 'edit']">Edit trip</a>
-    <!-- Add a delete button -->
+    <button matButton="outlined" type="button" (click)="deleteTrip(s.data)" [disabled]="deleting()">
+      Delete trip
+    </button>
   </div>
+
+  @if (deleteError(); as message) {
+    <p role="alert" class="error">{{ message }}</p>
+  }
 
   <h2>People</h2>
 
