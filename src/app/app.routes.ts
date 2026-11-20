@@ -8,5 +8,6 @@ export const routes: Routes = [
   { path: 'trips', component: TripList },
   { path: 'trips/new', component: TripForm },
   { path: 'trips/:id', component: TripDetails },
+  { path: 'trips/:id/edit', component: TripForm },
 
 ];

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, input, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,7 +23,7 @@ import { notBlank } from '../../../../shared/not-blank.validator';
   templateUrl: './trip-form.html',
   styleUrl: './trip-form.scss',
 })
-export class TripForm {
+export class TripForm implements OnInit {
   private formBuilder = inject(FormBuilder);
   private tripService = inject(TripService);
   private router = inject(Router);
@@ -32,6 +32,9 @@ export class TripForm {
   saving = signal(false);
   saveError = signal<string | null>(null);
 
+  // Empty for /trips/new, filled from the URL for /trips/:id/edit
+  readonly id = input<string>();
+
   tripForm = this.formBuilder.nonNullable.group({
     name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(60), notBlank]],
     destination: ['', [Validators.maxLength(80)]],
@@ -39,6 +42,24 @@ export class TripForm {
     startDate: ['', Validators.required],
     endDate: ['', Validators.required],
   });
+
+  ngOnInit(): void {
+    const id = this.id();
+    if (!id) return; // adding a new trip, nothing to load
+
+    this.tripService.getTripById(id).subscribe({
+      next: (trip) =>
+        this.tripForm.patchValue({
+          name: trip.name,
+          destination: trip.destination ?? '',
+          currency: trip.currency,
+          // The API returns "2026-07-01T00:00:00.000Z"; the date input needs "2026-07-01"
+          startDate: trip.startDate.slice(0, 10),
+          endDate: trip.endDate.slice(0, 10),
+        }),
+      error: (err: Error) => this.saveError.set(err.message),
+    });
+  }
 
   onSubmit(): void {
     if (this.tripForm.invalid) {
@@ -59,7 +80,10 @@ export class TripForm {
     this.saveError.set(null);
     this.tripForm.disable();
 
-    this.tripService.addTrip(trip).subscribe({
+    const id = this.id();
+    const request = id ? this.tripService.updateTrip(id, trip) : this.tripService.addTrip(trip);
+    
+    request.subscribe({
       next: (saved) => {
         this.snackBar.open(`${saved.name} saved`, 'Close', { duration: 5000 });
         this.router.navigate(['/trips', saved._id]);

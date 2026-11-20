@@ -1,5 +1,5 @@
 <form [formGroup]="tripForm" (ngSubmit)="onSubmit()" class="form">
-  <h1>New trip</h1>
+  <h1>{{ id() ? 'Edit trip' : 'New trip' }}</h1>
 
   @if (saving()) {
     <mat-progress-bar mode="indeterminate" />
@@ -63,6 +63,6 @@
     <button matButton="filled" type="submit" [disabled]="saving()">
       {{ saving() ? 'Saving...' : 'Save trip' }}
     </button>
-    <a matButton routerLink="/trips">Cancel</a>
+    <a matButton [routerLink]="id() ? ['/trips', id()] : ['/trips']">Cancel</a>
   </div>
 </form>
