@@ -1,7 +1,7 @@
 @let s = state();
 
 @if (s.status === 'loading') {
-  <p>Loading expenses...</p>
+  <p role="status">Loading expenses...</p>
 } @else if (s.status === 'error') {
   <p role="alert" class="error">{{ s.message }}</p>
 } @else if (s.data.length === 0) {
@@ -17,7 +17,11 @@
         <span class="actions">
           <!-- The API stores cents, so divide by 100 to show euro -->
           <strong>{{ expense.amount / 100 | currency: currency() }}</strong>
-          <button matButton type="button" (click)="deleteExpense(expense)">Delete</button>
+          <button matButton type="button"
+                  (click)="deleteExpense(expense)"
+                  [attr.aria-label]="'Delete ' + expense.description">
+            Delete
+          </button>
         </span>
       </li>
     }

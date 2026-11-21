@@ -1,6 +1,6 @@
 @let s = state();
 @if (s.status === 'loading') {
-  <p>Loading people...</p>
+  <p role="status">Loading people...</p>
 } @else if (s.status === 'error') {
   <p role="alert" class="error">{{ s.message }}</p>
 } @else if (s.data.length === 0) {
@@ -13,10 +13,16 @@
           {{ person.email }}
         </span>
         <span class="actions">
-          <a matButton [routerLink]="['/trips', tripId(), 'participants', person._id, 'edit']">
-            Edit 
+          <a matButton
+             [routerLink]="['/trips', tripId(), 'participants', person._id, 'edit']"
+             [attr.aria-label]="'Edit ' + person.name">
+            Edit
           </a>
-          <button matButton type="button" (click)="deleteParticipant(person)">Remove</button>
+          <button matButton type="button"
+                  (click)="deleteParticipant(person)"
+                  [attr.aria-label]="'Remove ' + person.name">
+            Remove
+          </button>
         </span>
       </li>
     }

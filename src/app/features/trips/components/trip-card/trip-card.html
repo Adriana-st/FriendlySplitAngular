@@ -12,6 +12,6 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <a matButton [routerLink]="['/trips', trip()._id]">View</a>
+    <a matButton [routerLink]="['/trips', trip()._id]" [attr.aria-label]="'View ' + trip().name">View</a>
   </mat-card-actions>
 </mat-card>

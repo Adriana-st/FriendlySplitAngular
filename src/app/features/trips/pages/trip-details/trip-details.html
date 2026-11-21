@@ -2,7 +2,7 @@
 
 @let s = state();
 @if (s.status === 'loading') {
-  <p>Loading trip...</p>
+  <p role="status">Loading trip...</p>
 } @else if (s.status === 'error') {
   <p role="alert" class="error">{{ s.message }}</p>
 } @else {
