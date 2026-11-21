@@ -1,4 +1,10 @@
-// Space around the content, and a maximum width so it doesn't stretch too far on a big screen
+.brand {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+// Readable width on a big screen, breathing room on a phone
 .page {
   max-width: 64rem;
   margin: 0 auto;
