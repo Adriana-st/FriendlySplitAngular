@@ -1,0 +1,55 @@
+<a matButton [routerLink]="['/trips', id()]">Back to trip</a>
+
+@let s = state();
+@if (s.status === 'loading') {
+  <p>Working out balances...</p>
+} @else if (s.status === 'error') {
+  <p role="alert" class="error">{{ s.message }}</p>
+} @else {
+  <h1>Settle up</h1>
+  <p>Total spent: <strong>{{ s.data.totalSpent / 100 | currency: s.data.currency }}</strong></p>
+
+  <!-- The wrapper scrolls sideways on a small phone instead of breaking the page -->
+  <div class="table-wrap">
+    <table>
+      <caption>What each person paid and owes</caption>
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Paid</th>
+          <th scope="col">Share</th>
+          <th scope="col">Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (b of s.data.balances; track b.participant) {
+          <tr>
+            <td>{{ b.name }}</td>
+            <td>{{ b.paid / 100 | currency: s.data.currency }}</td>
+            <td>{{ b.owed / 100 | currency: s.data.currency }}</td>
+            <td>
+              @if (b.net > 0) {
+                is owed {{ b.net / 100 | currency: s.data.currency }}
+              } @else if (b.net < 0) {
+                owes {{ -b.net / 100 | currency: s.data.currency }}
+              } @else {
+                settled
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Payments to settle up</h2>
+  @if (s.data.settlements.length === 0) {
+    <p>Everyone is settled up.</p>
+  } @else {
+    <ul>
+      @for (p of s.data.settlements; track $index) {
+        <li>{{ p.fromName }} pays {{ p.toName }} {{ p.amount / 100 | currency: s.data.currency }}</li>
+      }
+    </ul>
+  }
+}

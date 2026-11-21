@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Trip, CreateTripDto, UpdateTripDto } from '../models/trip.model';
+import { TripBalances } from '../../balances/models/balances.model';
 
 @Injectable({
   providedIn: 'root',
@@ -31,5 +32,10 @@ export class TripService {
 
   deleteTrip(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  // Returns one object with the trip's total spent, balances, and settlements
+  getBalances(tripId: string): Observable<TripBalances> {
+    return this.http.get<TripBalances>(`${this.apiUrl}/${tripId}/balances`);
   }
 }

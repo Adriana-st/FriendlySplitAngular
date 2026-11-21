@@ -14,10 +14,15 @@
   <p>Currency: {{ s.data.currency }}</p>
 
   <div class="actions">
-    <a matButton="filled" [routerLink]="['/trips', s.data._id, 'edit']">Edit trip</a>
+    <a matButton="filled" [routerLink]="['/trips', s.data._id, 'edit']">
+      Edit trip
+    </a>
     <button matButton="outlined" type="button" (click)="deleteTrip(s.data)" [disabled]="deleting()">
       Delete trip
     </button>
+    <a matButton="tonal" [routerLink]="['/trips', s.data._id, 'balances']">
+      Settle up
+    </a>
   </div>
 
   @if (deleteError(); as message) {
