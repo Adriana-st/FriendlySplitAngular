@@ -63,6 +63,6 @@
     <button matButton="filled" type="submit" [disabled]="saving()">
       {{ saving() ? 'Saving...' : 'Save trip' }}
     </button>
-    <a matButton [routerLink]="id() ? ['/trips', id()] : ['/trips']">Cancel</a>
+    <a matButton="outlined" [routerLink]="id() ? ['/trips', id()] : ['/trips']">Cancel</a>
   </div>
 </form>
