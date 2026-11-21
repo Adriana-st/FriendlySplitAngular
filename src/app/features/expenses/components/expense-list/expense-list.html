@@ -1,0 +1,29 @@
+@let s = state();
+
+@if (s.status === 'loading') {
+  <p>Loading expenses...</p>
+} @else if (s.status === 'error') {
+  <p role="alert" class="error">{{ s.message }}</p>
+} @else if (s.data.length === 0) {
+  <p>No expenses yet.</p>
+} @else {
+  <ul class="rows">
+    @for (expense of s.data; track expense._id) {
+      <li class="row">
+        <span>
+          <strong>{{ expense.description }}</strong> ({{ expense.category }})<br />
+          {{ expense.date | date: 'd MMM y' : 'UTC' }} · paid by {{ payerName(expense.paidBy) }}
+        </span>
+        <span class="actions">
+          <!-- The API stores cents, so divide by 100 to show euro -->
+          <strong>{{ expense.amount / 100 | currency: currency() }}</strong>
+          <button matButton type="button" (click)="deleteExpense(expense)">Delete {{ expense.description }}</button>
+        </span>
+      </li>
+    }
+  </ul>
+}
+
+@if (deleteError(); as message) {
+  <p role="alert" class="error">{{ message }}</p>
+}

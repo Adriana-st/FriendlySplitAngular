@@ -29,5 +29,7 @@
   <a matButton="outlined" [routerLink]="['/trips', s.data._id, 'participants', 'new']">Add person</a>
 
   <h2>Expenses</h2>
+  <app-expense-list [tripId]="s.data._id" [currency]="s.data.currency" />
+  <a matButton="outlined" [routerLink]="['/trips', s.data._id, 'expenses', 'new']">Add expense</a>
 
 }

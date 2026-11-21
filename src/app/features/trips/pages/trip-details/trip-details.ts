@@ -9,10 +9,11 @@ import { Trip } from '../../models/trip.model';
 import { TripService } from '../../services/trip.service';
 import { LoadState, withLoadState } from '../../../../shared/load-state';
 import { ParticipantList } from '../../../participants/components/participant-list/participant-list';
+import { ExpenseList } from '../../../expenses/components/expense-list/expense-list';
 
 @Component({
   selector: 'app-trip-details',
-  imports: [DatePipe, RouterLink, MatButtonModule, ParticipantList],
+  imports: [DatePipe, RouterLink, MatButtonModule, ParticipantList, ExpenseList],
   templateUrl: './trip-details.html',
   styleUrl: './trip-details.scss',
 })
