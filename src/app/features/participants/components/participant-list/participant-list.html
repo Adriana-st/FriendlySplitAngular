@@ -12,9 +12,9 @@
         <span><strong>{{ person.name }}</strong> – {{ person.email }}</span>
         <span class="actions">
           <a matButton [routerLink]="['/trips', tripId(), 'participants', person._id, 'edit']">
-            Edit {{ person.name }}
+            Edit 
           </a>
-          <button matButton type="button" (click)="deleteParticipant(person)">Remove {{ person.name }}</button>
+          <button matButton type="button" (click)="deleteParticipant(person)">Remove</button>
         </span>
       </li>
     }

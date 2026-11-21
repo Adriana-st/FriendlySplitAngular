@@ -17,7 +17,7 @@
         <span class="actions">
           <!-- The API stores cents, so divide by 100 to show euro -->
           <strong>{{ expense.amount / 100 | currency: currency() }}</strong>
-          <button matButton type="button" (click)="deleteExpense(expense)">Delete {{ expense.description }}</button>
+          <button matButton type="button" (click)="deleteExpense(expense)">Delete</button>
         </span>
       </li>
     }
